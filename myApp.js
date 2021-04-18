@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var env = require("dotenv").config();
 
 const path = `${__dirname}/views/index.html`
 
@@ -10,7 +11,9 @@ app.get('/',(req, res) =>{
 })
 
 app.get('/json', (req, res) => {
-    const miObjeto = {"message": "Hello json"}
+    let message     = 'Hello json'
+    message         = (process.env.MESSAGE_STYLE == 'uppercase') ? message.toUpperCase() : message
+    const miObjeto  = { message }
     res.setHeader('Content-Type', 'application/json');
     res.json(miObjeto)
 })
