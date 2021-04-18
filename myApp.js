@@ -23,4 +23,12 @@ app.get('/json', (req, res) => {
     res.json(miObjeto)
 })
 
+app.get('/now', (req, res, next) => {
+    req.time = new Date().toString()
+    next()
+}, (req, res) => {
+    res.setHeader('Content-Type','application/json')
+    res.json({time: req.time})
+})
+
 module.exports = app;
